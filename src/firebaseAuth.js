@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { getAuth, sendSignInLinkToEmail , GoogleAuthProvider, signInWithEmailLink } from "firebase/auth";
+import { getAuth, sendSignInLinkToEmail , GoogleAuthProvider, signInWithEmailLink, isSignInWithEmailLink } from "firebase/auth";
 import { initializeApp } from 'firebase/app'
 
 
@@ -27,4 +27,4 @@ const auth = getAuth(app);
 const googleAuthProvider = new GoogleAuthProvider();
 
 
-export { auth, googleAuthProvider, sendSignInLinkToEmail, signInWithEmailLink };
+export { auth, googleAuthProvider, sendSignInLinkToEmail, signInWithEmailLink, isSignInWithEmailLink };

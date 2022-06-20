@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { auth, signInWithEmailLink } from '../../firebaseAuth';
+import { auth, signInWithEmailLink, isSignInWithEmailLink } from '../../firebaseAuth';
+import { useNavigate } from "react-router-dom";
+
 
 
 const RegisterComplete = ({ history }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState("");
+  const nav = new useNavigate();
 
   useEffect(() => {
     setEmail(window.localStorage.getItem("emailForRegistration"));
@@ -31,27 +34,29 @@ const RegisterComplete = ({ history }) => {
     try {
       console.log("hello");
       const result = await signInWithEmailLink(
+        auth,
         email,
         window.location.href
       );
 
       console.log(result);
 
-      if(result.user.emailVerified){
+      if(isSignInWithEmailLink(auth, window.location.href)){
         // remove user email from local storage
         window.localStorage.removeItem("emailForRegistration");
         
         //get user id token
         let user = auth.currentUser;
-        await user.updatePassword(password);
+        // await user.updatePassword(password);
 
-        const idTokenResult = await user.getIdTokenResult();
+        const idTokenResult = await user.getIdToken();
         
         // redux store
         console.log("User", user, "IdTokenResult", idTokenResult);
 
         // redirect
-        history.push('/');
+        // history.push('/');
+        nav('/');
       }
 
     } catch (error) {
