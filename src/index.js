@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'antd/dist/antd.css';
 
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers';
 
 // store
-const store = createStore(rootReducer, composeWithDevTools);
+const store = configureStore({
+  reducer: rootReducer, 
+  devTools: composeWithDevTools
+});
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -9,8 +9,11 @@ import Home from './pages/Home';
 import Header from './components/nav/Header';
 import RegisterComplete from './pages/auth/RegisterComplete';
 
+import { auth } from './firebaseAuth'
+import { useDispatch } from 'react-redux'
 
 const App = () => {
+  
   return (
     <>
       <Header />
