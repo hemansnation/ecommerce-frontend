@@ -5,7 +5,8 @@ import {
   GoogleAuthProvider, 
   signInWithEmailLink, 
   isSignInWithEmailLink,
-  signOut 
+  signOut,
+  signInWithEmailAndPassword
 } from "firebase/auth";
 import { initializeApp } from 'firebase/app'
 
@@ -34,4 +35,4 @@ const auth = getAuth(app);
 const googleAuthProvider = new GoogleAuthProvider();
 
 
-export { auth, signOut, googleAuthProvider, sendSignInLinkToEmail, signInWithEmailLink, isSignInWithEmailLink };
+export { auth, signOut, googleAuthProvider, sendSignInLinkToEmail, signInWithEmailLink, isSignInWithEmailLink, signInWithEmailAndPassword };
