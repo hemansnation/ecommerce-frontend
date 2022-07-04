@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { auth, signInWithEmailAndPassword } from '../../firebaseAuth';
+import { auth, signInWithEmailAndPassword, googleAuthProvider, signInWithPopup } from '../../firebaseAuth';
 import { Button } from 'antd';
-import { MailOutlined } from '@ant-design/icons';
+import { GoogleOutlined, MailOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 
 
 const Login = () => {
   const [email, setEmail] = useState('himanshuramchandani08@gmail.com')
-  const [password, setPassword] = useState('123456');
+  const [password, setPassword] = useState('1234567');
   const [loading, setLoading] = useState(false);
 
   let dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Login = () => {
 
     try{
       const result = await signInWithEmailAndPassword(auth, email, password);
-      // console.log(result);
+      console.log(result);
 
       const { user } = result;
       const idTokenResult = await user.getIdToken();
@@ -43,6 +43,29 @@ const Login = () => {
       toast.error(error.message);
       setLoading(false);
     }
+  }
+
+  const googleLogin = () => {
+    
+    signInWithPopup(auth, googleAuthProvider)
+      .then(async (result) => {
+        const {user} = result;
+        const idTokenResult = await user.getIdToken();
+
+        dispatch({
+          type: "LOGGED_IN_USER",
+          payload: {
+            email: user.email,
+            token: idTokenResult.token,
+          }
+        })
+
+        nav('/')
+      }).catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      })
+
   }
 
 
@@ -82,6 +105,7 @@ const Login = () => {
       >
         Login with Email/Password
       </Button>
+
     </form>
   )
 
@@ -89,8 +113,25 @@ const Login = () => {
     <div className='container'>
       <div className='row'>
         <div className='col-md-6 offset-md-3'>
-          <h3>Login</h3>
+          {loading ? (
+            <h3 className='text-danger'>Loading...</h3>
+          ) : (
+            <h3>Login</h3>
+          )}
+          
           {loginForm()}
+
+          <Button
+            onClick={googleLogin}
+            type="danger"
+            className='mb-3'
+            block
+            shape='round'
+            icon={<GoogleOutlined />}
+            size='large'
+          >
+        Login with Google
+      </Button>
         </div>
       </div>
     </div>

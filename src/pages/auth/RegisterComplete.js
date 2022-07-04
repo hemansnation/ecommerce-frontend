@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { auth, signInWithEmailLink, isSignInWithEmailLink } from '../../firebaseAuth';
+import { auth, signInWithEmailLink, isSignInWithEmailLink, createUserWithEmailAndPassword } from '../../firebaseAuth';
 import { useNavigate } from "react-router-dom";
 
 
@@ -48,6 +48,7 @@ const RegisterComplete = ({ history }) => {
         //get user id token
         let user = auth.currentUser;
         // await user.updatePassword(password);
+        createUserWithEmailAndPassword(auth, email, password)
 
         const idTokenResult = await user.getIdToken();
         

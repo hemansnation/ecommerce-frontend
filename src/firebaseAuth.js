@@ -6,7 +6,10 @@ import {
   signInWithEmailLink, 
   isSignInWithEmailLink,
   signOut,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  sendPasswordResetEmail
 } from "firebase/auth";
 import { initializeApp } from 'firebase/app'
 
@@ -35,4 +38,4 @@ const auth = getAuth(app);
 const googleAuthProvider = new GoogleAuthProvider();
 
 
-export { auth, signOut, googleAuthProvider, sendSignInLinkToEmail, signInWithEmailLink, isSignInWithEmailLink, signInWithEmailAndPassword };
+export { auth, signOut, sendPasswordResetEmail , googleAuthProvider, signInWithPopup , sendSignInLinkToEmail, signInWithEmailLink, isSignInWithEmailLink, signInWithEmailAndPassword, createUserWithEmailAndPassword };
