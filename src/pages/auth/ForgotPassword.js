@@ -9,7 +9,15 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false);
 
+  const { user } = useSelector((state) => ({ ...state }))
+
   const nav = new useNavigate();
+
+  useEffect(() => {
+    if(user && user.token){
+      nav('/')
+    }
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +32,7 @@ const ForgotPassword = () => {
             .then(() => {
                 setEmail("");
                 setLoading(false);
-                toast.success("Check Your email fot password reset Link")
+                toast.success("Check Your email for password reset Link")
             })
             .catch((error) => {
                 setLoading(false);
